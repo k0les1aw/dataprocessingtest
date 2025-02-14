@@ -29,8 +29,7 @@ Before running the application, ensure you have the following installed:
 
 ```sh
 git clone https://github.com/k0les1aw/dataprocessingtest.git
-git checkout main
-cd dataprocessing
+cd dataprocessingtest
 ```
 
 ### 2. Build and Run the Application with Docker Compose
