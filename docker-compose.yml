@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  sqlserver_container:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver_container
+    environment:
+      MSSQL_SA_PASSWORD: "12345678xX!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    networks:
+      - app_network
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  app:
+    build: .
+    container_name: transaction_processor
+    depends_on:
+      - sqlserver_container
+    ports:
+      - "8080:80"
+    networks:
+      - app_network
+    volumes:
+      - ./reports:/app/reports
+    command: ["transactions_10_thousand.csv"]
+    user: root 
+
+volumes:
+  sql_data:
+
+networks:
+  app_network:
+    driver: bridge
